@@ -33,16 +33,14 @@ const searchDatabase = function (event) {
 
 searchButton.addEventListener('click', searchDatabase);
 
-/// 2. PINTO EN DOM LOS RESULTADOS QUE ME PROPORCIONA EL API
+/// 2. PINTO EN EL DOM LOS RESULTADOS QUE ME PROPORCIONA EL API
 
 const showResults = () => {
-  console.log(results);
   let insertHTML = '';
   for (const result of results) {
-    console.log(result.show.image);
     insertHTML += `<li class="list__item" id="${result.show.id}">`;
     if (result.show.image === null) {
-      insertHTML += `<img src="otra cosa" class="item__img" alt="cover image"/>`;
+      insertHTML += `<img src="./images/img-not-available.jpg" class="item__img" alt="cover image not available"/>`;
     } else {
       insertHTML += `<img src="${result.show.image.medium}" class="item__img" alt="cover image"/>`;
     }
@@ -54,13 +52,16 @@ const showResults = () => {
   listenSeries();
 };
 
+///3. CREO EL EVENT LISTENER QUE ME AYUDA A PINTAR EN FAVORITOS AQUELLOS ITEMS CLICADOS
 const listenSeries = () => {
-  ///3. CREO EL EVENT LISTENER QUE ME AYUDA A PINTAR EN FAVORITOS AQUELLOS ITEMS CLICADOS
-  const favButton = document.querySelector('.list__item');
+  const favButton = document.querySelectorAll('.list__item');
+
   favButton.addEventListener('click', addToFavorites);
 };
 
-const addToFavorites = function (event) {
-  console.log('Me han clicado');
+const addToFavorites = function () {
+  console.log('me han clicado', ev.currentTarget.id);
+  let itemId = document.querySelector();
+
   //para favorites.push (RESULT CON EL ID ya que me sirve el mismo fetch?)
 };
