@@ -1,19 +1,13 @@
 'use strict';
 
-//Qué necesito?
+//¿QUÉ NECESITO DE PARTIDA?
 //1 array vacío para los resultados
 //1 array vacío para favoritos
-// const cards (items) traídas del API
 
 let results = [];
 let favorites = [];
-// let item = {
-//   name:
-//   image:
-//   id:
-// };
 
-/// 1. EVENT LISTENER QUE RECOGE LA INFO DEL API CUANDO EL USUARIO ENVÍA UNA BÚSQUEDA
+/// 1. EVENT LISTENER QUE RECOGE LA INFO DEL API CUANDO EL USUARIO ENVÍA UNA BÚSQUEDA:
 
 const searchButton = document.querySelector('.js-search-button');
 
@@ -33,7 +27,7 @@ const searchDatabase = function (event) {
 
 searchButton.addEventListener('click', searchDatabase);
 
-/// 2. PINTO EN EL DOM LOS RESULTADOS QUE ME PROPORCIONA EL API
+/// 2. PINTO EN EL DOM LOS RESULTADOS QUE ME PROPORCIONA EL API:
 
 const showResults = () => {
   let insertHTML = '';
@@ -49,19 +43,37 @@ const showResults = () => {
   }
   const resultItem = document.querySelector('.js-results-list');
   resultItem.innerHTML = insertHTML;
+
   listenSeries();
 };
 
-///3. CREO EL EVENT LISTENER QUE ME AYUDA A PINTAR EN FAVORITOS AQUELLOS ITEMS CLICADOS
+/// 3. CREO EL EVENT LISTENER QUE ME AYUDA A PINTAR EN FAVORITOS AQUELLOS ITEMS CLICADOS:
+
 const listenSeries = () => {
-  const favButton = document.querySelectorAll('.list__item');
-
-  favButton.addEventListener('click', addToFavorites);
+  const favButtons = document.querySelectorAll('.list__item');
+  for (const favButton of favButtons) {
+    favButton.addEventListener('click', gatherClicks);
+  }
 };
 
-const addToFavorites = function () {
-  console.log('me han clicado', ev.currentTarget.id);
-  let itemId = document.querySelector();
+/// 4. AÑADO ESOS ITEMS CLICADOS AL ARRAY DE FAVORITOS:
 
-  //para favorites.push (RESULT CON EL ID ya que me sirve el mismo fetch?)
+const gatherClicks = (event) => {
+  const clickedId = parseInt(event.currentTarget.id);
+  const result = results.find((resultItem) => resultItem.id === clickedId);
+  favorites.push(result);
+  console.log(favorites);
+
+  //NO TOMA ID, CREO QUE NO VA A FUNCIONAR
+
+  //Equivalente a:
+  // for (const result of results) {
+  //   if (result.id === clickedId) {
+  //     console.log(result);
+  //   }
+  // }
 };
+
+/// 4. PINTO EL ARRAY EN LA SECCIÓN FAVORITOS:
+
+const addToFavorites 
