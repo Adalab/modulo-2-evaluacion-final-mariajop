@@ -22,7 +22,7 @@ const searchDatabase = function (event) {
     .then(function (data) {
       results = data;
       showResults();
-      showFavorites();
+      showFavorites(); ///es correcto también decir que muestre favs?
     });
 };
 
@@ -62,12 +62,30 @@ const listenSeries = () => {
 const gatherClicks = (event) => {
   const clickedId = parseInt(event.currentTarget.id);
   const favFilm = results.find((result) => result.show.id === clickedId);
-  favorites.push(favFilm);
-  showFavorites();
+  const savedFilm = favorites.find((favorite) => favorite.show.id === clickedId);
+
+  if (savedFilm === undefined) {
+    favorites.push(favFilm);
+    showFavorites();
+    updateLocalStorage();
+  }
+
+  // // check if the item is already in the list
+  // let found = false;
+  // for (let item of favorites) {
+  //   if (item.show.id === clickedId) {
+  //     found = true;
+  //   }
+  // }
+  // // add the item if not in the list
+  // if (found == false) {
+  //   favorites.push(favFilm);
+  //   showFavorites();
+  //   updateLocalStorage();
+  // }
 };
 
-/// 4. PINTO EL ARRAY DE FAVORITOS EN SU SECCIÓN DEL DOM:
-//No consigo que recorra el array de favoritos a la hora de añadirlos
+/// 5. PINTO EL ARRAY DE FAVORITOS EN SU SECCIÓN DEL DOM:
 
 const showFavorites = () => {
   let insertHTML = '';
@@ -82,43 +100,47 @@ const showFavorites = () => {
     insertHTML += `<h3 class="item__title">${favorite.show.name}</h3>`;
     insertHTML += `</li>`;
   }
+  insertHTML += `<button class="js-empty-button">Delete all favorites</button>`;
+
   const favItem = document.querySelector('.js-favorites-list');
   favItem.innerHTML = insertHTML;
-
-  // removeFromFavorites();
-  // updateLocalStorage();
+  const btnResetFavs = document.querySelector('.js-empty-button');
+  btnResetFavs.addEventListener('click', removeAllFavs);
 };
 
-//DEFINIR FUNCIÓN QUE SE ACTIVA EN EL EVENT LISTENER DEL BOTÓN PARA ELIMINAR FAVORITOS.
+/// 6. LOCAL STORAGE:
 
-//BONUS: BOTÓN QUE BORRA TODOS LOS FAVS.
+const updateLocalStorage = () => {
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+};
 
-//ALMACENAR Y CONSULTAR FAVORITOS EN LOCAL STORAGE: (conocer dónde estoy recogiendo datos)
-// const updateLocalStorage = () => {
-//   localStorage.setItem('favorites', JSON.stringify(favorites));
-// };
+const getFromLocalStorage = () => {
+  const dataFromStorage = JSON.parse(localStorage.getItem('favorites'));
+  if (favorites !== null) {
+    favorites = dataFromStorage;
+  }
+};
 
-// const getFromLocalStorage = () => {
-//   const data = JSON.parse(localStorage.getItem('favorites'));
-//   if (favorites !== null) {
-//     favorites = data;
-//   }
-// };
+//DEFINIR FUNCIÓN QUE SE ACTIVA EN EL EVENT LISTENER DEL BOTÓN PARA ELIMINAR 1 FAVORITO:
 
-// BOTÓN BORRAR TODOS
+// const btnDeleteFavs = document.querySelector('favs__button--delete');
 
-// const btnResetFavs = document.querySelector('POR CREAR');
-
-// const removeAllFavs = () => {
-//   favorites = [];
+// const removeFav = () => {
+//   //Sería el punto 4 con pop?
 //   updateLocalStorage();
-//   showResults();
+//   showFavorites();
 // };
+// btnDeleteFavs.addEventListener('click', removeFav);
 
-// btnResetFavs.addEventListener('click', removeAll);
+//BONUS: BOTÓN QUE BORRA TODOS LOS FAVORITOS:
 
-//START APP:
-// searchDatabase();
-// getFromLocalStorage();
-// addToFavorites();
-// showResults();
+const removeAllFavs = () => {
+  favorites = [];
+  updateLocalStorage();
+  showFavorites();
+};
+
+// START APP
+getFromLocalStorage();
+showResults();
+showFavorites();

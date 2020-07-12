@@ -49,12 +49,12 @@
   width: 200px;
   height: 50px;
   border-radius: 25px;
-  border-color: rgb(252, 192, 222);
+  border-color: #a0d9e5;
   padding: 6px;
   color: grey;
   font-weight: 400;
   font-size: 1.5rem;
-  background-color: rgb(252, 192, 222);
+  background-color: #a0d9e5;
   cursor: pointer;
   outline: none;
 }
@@ -63,12 +63,12 @@
   width: 200px;
   height: 50px;
   border-radius: 25px;
-  border-color: rgb(252, 192, 222);
+  border-color: #a0d9e5;
   padding: 6px;
   color: grey;
   font-weight: 400;
   font-size: 1.25rem;
-  background-color: rgb(252, 192, 222);
+  background-color: #a0d9e5;
   cursor: pointer;
   outline: none;
   margin: 20px 20px;
@@ -81,6 +81,11 @@
 .list__item {
   display: flex;
   flex-wrap: start;
-  padding: 5px 5px;
+  padding: 20px 20px;
+  margin-bottom: 20px;
+  background-color: #ffd6d9;
+}
+
+.item__title {
   background-color: #ffd6d9;
 }
