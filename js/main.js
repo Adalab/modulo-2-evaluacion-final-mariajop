@@ -59,6 +59,12 @@ const listenSeries = () => {
 
 /// 4. AÑADO LOS ITEMS CLICADOS AL ARRAY DE FAVORITOS:
 
+const markFavorite = (showId) => {
+  //const listItem = document.querySelector('#' + showId);
+  const listItem = document.getElementById(showId);
+  listItem.classList.add('is-favorite');
+};
+
 const gatherClicks = (event) => {
   const clickedId = parseInt(event.currentTarget.id);
   const favFilm = results.find((result) => result.show.id === clickedId);
@@ -66,6 +72,7 @@ const gatherClicks = (event) => {
 
   if (savedFilm === undefined) {
     favorites.push(favFilm);
+    markFavorite(clickedId);
     showFavorites();
     updateLocalStorage();
   }

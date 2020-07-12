@@ -89,3 +89,8 @@
 .item__title {
   background-color: #ffd6d9;
 }
+
+.is-favorite {
+  background-color: #b6b4b4;
+  color: black;
+}
