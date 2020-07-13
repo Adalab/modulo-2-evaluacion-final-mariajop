@@ -7,30 +7,25 @@
     <link rel="stylesheet" href="./styles/styles.css" />
   </head>
   <body>
-    <div class="main__search">
+    <div class="main__search wrapper">
       <h1 class="title">TV Series Search Engine</h1>
       <div>
         <form class="searchbar" action="search">
-          <input
-            class="js-search-input"
-            type="text"
-            placeholder="Type in your search here..."
-          />
+          <input class="js-search-input" type="text" placeholder="Type in your search here..." />
           <button class="js-search-button" type="submit">SEARCH</button>
         </form>
       </div>
-      <div class="main__results">
-        <section class="results">
-          <h2>RESULTS:</h2>
-          <ul class="js-results-list"></ul>
-        </section>
-        <section class="favorites">
-          <h2>YOUR FAVORITES:</h2>
-          <ul class="js-favorites-list"></ul>
-        </section>
-      </div>
-
-      <script src="./js/main.js"></script>
     </div>
+    <div class="main__results">
+      <section class="results">
+        <h2>RESULTS:</h2>
+        <ul class="js-results-list"></ul>
+      </section>
+      <section class="favorites">
+        <h2>YOUR FAVORITES:</h2>
+        <ul class="js-favorites-list"></ul>
+      </section>
+    </div>
+    <script src="./js/main.js"></script>
   </body>
 </html>

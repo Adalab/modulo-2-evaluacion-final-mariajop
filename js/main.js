@@ -22,7 +22,7 @@ const searchDatabase = function (event) {
     .then(function (data) {
       results = data;
       showResults();
-      showFavorites(); ///es correcto también decir que muestre favs?
+      showFavorites();
     });
 };
 
@@ -53,22 +53,23 @@ const showResults = () => {
 const listenSeries = () => {
   const favButtons = document.querySelectorAll('.list__item');
   for (const favButton of favButtons) {
-    favButton.addEventListener('click', gatherClicks);
+    favButton.addEventListener('click', listenClicks);
   }
 };
 
 /// 4. AÑADO LOS ITEMS CLICADOS AL ARRAY DE FAVORITOS:
 
 const markFavorite = (showId) => {
-  //const listItem = document.querySelector('#' + showId);
   const listItem = document.getElementById(showId);
   listItem.classList.add('is-favorite');
 };
 
-const gatherClicks = (event) => {
+const listenClicks = (event) => {
   const clickedId = parseInt(event.currentTarget.id);
   const favFilm = results.find((result) => result.show.id === clickedId);
   const savedFilm = favorites.find((favorite) => favorite.show.id === clickedId);
+
+  //Añadiendo la condición que evita que se añada por duplicado un item que ya tenemos en el array de favoritos:
 
   if (savedFilm === undefined) {
     favorites.push(favFilm);
@@ -76,20 +77,6 @@ const gatherClicks = (event) => {
     showFavorites();
     updateLocalStorage();
   }
-
-  // // check if the item is already in the list
-  // let found = false;
-  // for (let item of favorites) {
-  //   if (item.show.id === clickedId) {
-  //     found = true;
-  //   }
-  // }
-  // // add the item if not in the list
-  // if (found == false) {
-  //   favorites.push(favFilm);
-  //   showFavorites();
-  //   updateLocalStorage();
-  // }
 };
 
 /// 5. PINTO EL ARRAY DE FAVORITOS EN SU SECCIÓN DEL DOM:
@@ -103,16 +90,17 @@ const showFavorites = () => {
     } else {
       insertHTML += `<img src="${favorite.show.image.medium}" class="item__img" alt="cover image"/>`;
     }
-    insertHTML += `<img class="favs__button--delete" title="delete" src="./images/delete_icon.svg">`;
+    insertHTML += `<img class="js-delete-favs-button" title="delete" src="./images/delete_icon.svg">`;
     insertHTML += `<h3 class="item__title">${favorite.show.name}</h3>`;
     insertHTML += `</li>`;
   }
-  insertHTML += `<button class="js-empty-button">Delete all favorites</button>`;
+  insertHTML += `<button class="js-empty-favs-button">Delete all favorites</button>`;
 
   const favItem = document.querySelector('.js-favorites-list');
   favItem.innerHTML = insertHTML;
-  const btnResetFavs = document.querySelector('.js-empty-button');
-  btnResetFavs.addEventListener('click', removeAllFavs);
+
+  // const btnResetFavs = document.querySelector('.js-empty-favs-button');
+  // btnResetFavs.addEventListener('click', removeAllFavs);
 };
 
 /// 6. LOCAL STORAGE:
@@ -128,18 +116,15 @@ const getFromLocalStorage = () => {
   }
 };
 
-//DEFINIR FUNCIÓN QUE SE ACTIVA EN EL EVENT LISTENER DEL BOTÓN PARA ELIMINAR 1 FAVORITO:
+/// 7. FUNCIÓN QUE ELIMINA 1 FAVORITO:
+const btnDeleteFav = document.querySelectorAll('.js-delete-favs-button');
+btnDeleteFav.addEventListener('click', removeFav);
 
-// const btnDeleteFavs = document.querySelector('favs__button--delete');
+const removeFav = () => {
+  console.log('me han clicado');
+};
 
-// const removeFav = () => {
-//   //Sería el punto 4 con pop?
-//   updateLocalStorage();
-//   showFavorites();
-// };
-// btnDeleteFavs.addEventListener('click', removeFav);
-
-//BONUS: BOTÓN QUE BORRA TODOS LOS FAVORITOS:
+// 8. BOTÓN QUE BORRA TODOS LOS FAVORITOS:
 
 const removeAllFavs = () => {
   favorites = [];
