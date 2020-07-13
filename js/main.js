@@ -99,8 +99,8 @@ const showFavorites = () => {
   const favItem = document.querySelector('.js-favorites-list');
   favItem.innerHTML = insertHTML;
 
-  // const btnResetFavs = document.querySelector('.js-empty-favs-button');
-  // btnResetFavs.addEventListener('click', removeAllFavs);
+  const btnResetFavs = document.querySelector('.js-empty-favs-button');
+  btnResetFavs.addEventListener('click', removeAllFavs);
 };
 
 /// 6. LOCAL STORAGE:
